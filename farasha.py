@@ -29,6 +29,34 @@ print(r"""
 #
 #options()
 
+
+
+class farasha:
+    def payloads_xss():
+           
+        with open("payloads/xss.txt", 'r',  encoding='utf-8') as xss:
+                wordlist_xss = xss.read()
+
+    
+    def paylood_sql():
+         
+        with open("payloads/sql.txt", 'r', encoding='utf-8') as sql:
+            wordlist_sql = sql.read()
+        print(wordlist_sql)
+            
+    payloads_xss()
+
+
+
+
+
+
+
+
+
+
+
+
 #if __name__ == "__main__":
 #    main()
 
