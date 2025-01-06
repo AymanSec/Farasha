@@ -1,0 +1,13 @@
+import requests
+
+import re
+
+def extract_endpoints(js_url):
+    response = requests.get(js_url)
+    js_code = response.text
+    pattern = r'https?://[^\s\'"<>]+'
+    endpoints = re.findall(pattern, js_code)
+    return endpoints
+
+js_url = "https://static.xx.fbcdn.net/rsrc.php/v5/y5/l/0,cross/OcSKRJznTvo.css"
+print(extract_endpoints(js_url))
