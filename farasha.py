@@ -39,7 +39,7 @@ class farasha:
        
     
 
-    print("yoy")
+    
 
 
 
