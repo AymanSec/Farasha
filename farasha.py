@@ -18,7 +18,7 @@ print(r"""
                                  │ |        _` |    __|    _` |    __|   __ \     _` |│
                                  │ __|     (   |   |      (   |  \__ \   | | |   (   |│
                                  │_|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|│
-                                 └────────────────────────────────────────────────────┘---------------------------------
+                                 └────────────────────────────────────────────────────┘---------------------------------by AymanSec
 """)
 
 #def options():
@@ -32,19 +32,14 @@ print(r"""
 
 
 class farasha:
-    def payloads_xss():
+    def __init__(self):
            
         with open("payloads/xss.txt", 'r',  encoding='utf-8') as xss:
-                wordlist_xss = xss.read()
+            self.wordlist_xss = xss.read()
+       
+    
 
     
-    def paylood_sql():
-         
-        with open("payloads/sql.txt", 'r', encoding='utf-8') as sql:
-            wordlist_sql = sql.read()
-        print(wordlist_sql)
-            
-    payloads_xss()
 
 
 
@@ -56,7 +51,6 @@ class farasha:
 
 
 
-
-#if __name__ == "__main__":
-#    main()
+if __name__ == "__mafarasha":
+    farasha()
 
