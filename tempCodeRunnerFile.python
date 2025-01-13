@@ -1,0 +1,17 @@
+
+def match_url(self, url):
+      
+        self.url = url
+        string_regex = re.compile(r"^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?")
+        
+        if  re.match(string_regex, self.url):
+            
+            target = self.url
+      
+            print(target)
+       
+        else:
+            print("error")
+    
+
+match_url("https://www.youtube.com/")
