@@ -5,7 +5,7 @@
 
 
 
-
+import re
 import requests
 import threading
 import argparse
@@ -21,36 +21,61 @@ print(r"""
                                  └────────────────────────────────────────────────────┘---------------------------------by AymanSec
 """)
 
-#def options():
-#    parser = argparse.ArgumentParser()
-#    parser.add_argument("")
-#    args = parser.parse_args()
-#    
-#
-#options()
-
-
 
 class farasha:
-    def __init__(self):
+  
+    def read_xss(self):
            
-        with open("payloads/xss.txt", 'r',  encoding='utf-8') as xss:
+        with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
             self.wordlist_xss = xss.read()
        
+    def read_subs(self):
+        with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
+            self.subs = subs.read()
     
+    def fuzz_subs(self):
+        pass
+        # try:
+        
 
+        #     for 
+
+        # except:
+        #     pass
+
+    def fuzz_dir(self):
+        
     
+    def match_url(self, url):
+      
+       
+        string_regex = re.compile(r"^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}(\/[^\s]*)?$")
+        
+        if  re.match(string_regex, url):
+            
+            target = url
+      
+            print(f"the target:{target} has been taked with success!!✅✅")
+       
+        else:
+            print("""check your url plz!! ❌
+                  
+            ^^^^^^^^^^^^^^^^^^      
+                  hint:try add https:// or remove [s]!!❌   """)
+      
 
+    def options(self):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-f", "--fullScan", help="full scan for found all subs and all dir and fuzz xss as everthing ")
+        parser.add_argument("-q", "--quickScan", help="quick scan is for found dir and do fuzz xss as dir just dir:!")
+        parser.add_argument("-u", "--url", help="set url target", required=True)
+        args = parser.parse_args()
+        
+        if self.match_url(args.url):
+            print("good")
+        
 
-
-
-
-
-
-
-
-
-
-if __name__ == "__mafarasha":
-    farasha()
-
+if __name__ == "__main__":
+    
+    farasha().options()
+    
