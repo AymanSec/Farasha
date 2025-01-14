@@ -23,7 +23,11 @@ print(r"""
 
 
 class farasha:
-  
+    
+
+    discoverd_subs = ['']
+
+
     def read_xss(self):
            
         with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
@@ -35,33 +39,31 @@ class farasha:
     
     def fuzz_subs(self):
         pass
-        # try:
-        
-
-        #     for 
-
-        # except:
-        #     pass
 
     def fuzz_dir(self):
         
-    
+        pass
+
+    def param_crawler(self):
+        pass
+
+
+
     def match_url(self, url):
       
        
-        string_regex = re.compile(r"^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,63}(\/[^\s]*)?$")
+        string_regex = re.compile(r"^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$")
         
         if  re.match(string_regex, url):
             
             target = url
       
-            print(f"the target:{target} has been taked with success!!✅✅")
+            print(f"the target:\033[31m{target}\033[0m","has been taked with success!!✅✅")
        
         else:
             print("""check your url plz!! ❌
                   
-            ^^^^^^^^^^^^^^^^^^      
-                  hint:try add https:// or remove [s]!!❌   """)
+            ^^^^^^^^^^^^^^^^^^       """)
       
 
     def options(self):
@@ -75,7 +77,7 @@ class farasha:
             print("good")
         
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     
     farasha().options()
     
