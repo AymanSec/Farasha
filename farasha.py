@@ -3,7 +3,8 @@
 ####Kingdom morocco  ###########################################################################################
 #"""####################################################################################################"""
 
-
+req = requests.get("https://google.com")
+print(req)
 
 
 import re
@@ -22,35 +23,35 @@ print(r"""
                                  └────────────────────────────────────────────────────┘---------------------------------by AymanSec
 """)
 
-
 class farasha:
     
 
-    discoverd_subs = ['']
-    
-  
 
-    def __init__(self, wordlist_xss, subd):
-       
-        self.subd = subd
-        self.wordlist_xss = wordlist_xss
-        
-                                                                                             
-        
-           
+  
     def fuzz_subs(self, target):
+
+        with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
+           subd = subs.read().splitlines()
+           return subs                                                                                            
         
-        
-        for subdomains in self.subd:           
-            try:
-                   
-               url = f"https://{subdomains}.{target}"   
+        discoverd_subs = ['']
+    
+        for subdomains in subd:
+            url = f"https://{subdomains}.{target}"
+
+            #you should do http after, caus we want also scan local host !!  
+            try:    
+                  
+               
                req = requests.get(url)
                print(req)
             
-            except:
-                        print(SyntaxError,"error!")
-    
+            except requests.ConnectionError:
+                        pass
+            else:
+                print("Discoverd Subs: ", url)
+
+                discoverd_subs.append(url)
         
     def fuzz_dir(self):
         
@@ -59,7 +60,11 @@ class farasha:
     def param_crawler(self):
         pass
     
-    def xss_test():
+    def xss_finder():
+        with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
+           wordlist_xss = xss.read()
+          
+           return wordlist_xss
         pass
 
     def validat_xss():
@@ -97,17 +102,8 @@ class farasha:
         if args.fullScan:
            self.fuzz_subs(url)
         
-def read_subs():
-        with open("Farasha/wordlist/subs.txt", "r", encoding='utf-8') as subs:
-           subd = subs.read()
-           return subs
 
-def read_xss():
-        with open("Farasha/wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
-           wordlist_xss = xss.read()
-          
-           return wordlist_xss
 
 if __name__ == "__main__":  
 
-    farasha(read_xss(), read_subs()).options()
+    farasha().options()
