@@ -10,7 +10,7 @@ import re
 import requests
 import threading
 import argparse
-import os, sys
+import os, sys, subprocess
 from colorama import Fore, init
 
 
@@ -48,15 +48,27 @@ class farasha:
               
             except requests.ConnectionError:
                         pass
+            except KeyboardInterrupt:
+                        subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+                        print(f'{Fore.YELLOW}exite success!')      
+                        exit(0)  
+
+            
             else:
                 print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
 
                 discoverd_subs.append(url)
-            name_preference = target.replace(".com", "")
-             
-            with open(f"resulte/{name_preference}.txt", "x") as subs:
-                subs.write(discoverd_subs.replace("Discoverd Subs: ", ""))
-                print("output in folder resule!!")
+
+                name_preference = target.replace(".com", "")
+                os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
+                   
+                out = "\n".join(discoverd_subs)
+                with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
+                  subs.write(out)
+                  
+                
+          
+           
 
     def fuzz_dir(self):
         
@@ -87,7 +99,7 @@ class farasha:
                   
             ^^^^^^^^^^^^^^^^^^      try delete protocol http[s] and put just the name with domain!!  """)
       
-
+    
     def options(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("-f", "--fullScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true')
@@ -103,7 +115,7 @@ class farasha:
         
         if args.fullScan:
            self.fuzz_subs(url)
-        
+
 
 def wordlist_xss():
 
