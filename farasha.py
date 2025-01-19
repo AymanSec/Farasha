@@ -3,8 +3,7 @@
 ####Kingdom morocco  ###########################################################################################
 #"""####################################################################################################"""
 
-req = requests.get("https://google.com")
-print(req)
+
 
 
 import re
@@ -12,7 +11,9 @@ import requests
 import threading
 import argparse
 import os, sys
-import colorama
+from colorama import Fore, init
+
+
 
 print(r"""
                 -----------------─────────────────────────────────────────────────────┐
@@ -20,23 +21,23 @@ print(r"""
                                  │ |        _` |    __|    _` |    __|   __ \     _` |│
                                  │ __|     (   |   |      (   |  \__ \   | | |   (   |│
                                  │_|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|│
-                                 └────────────────────────────────────────────────────┘---------------------------------by AymanSec
+                                 └────────────────────────────────────────────────────┘-----------by AymanSec
 """)
+
+init(autoreset=True)
 
 class farasha:
     
-
-
-  
-    def fuzz_subs(self, target):
-
-        with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
-           subd = subs.read().splitlines()
-           return subs                                                                                            
+    def __init__(self, subd, xss_wordlist):
         
+        self.xss_wordlist = xss_wordlist
+        self.subd = subd
+
+    def fuzz_subs(self, target):    
+
         discoverd_subs = ['']
-    
-        for subdomains in subd:
+        
+        for subdomains in self.subd:
             url = f"https://{subdomains}.{target}"
 
             #you should do http after, caus we want also scan local host !!  
@@ -44,15 +45,16 @@ class farasha:
                   
                
                req = requests.get(url)
-               print(req)
-            
+              
             except requests.ConnectionError:
                         pass
             else:
-                print("Discoverd Subs: ", url)
+                print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
 
                 discoverd_subs.append(url)
-        
+            
+            with 
+
     def fuzz_dir(self):
         
         pass
@@ -60,11 +62,8 @@ class farasha:
     def param_crawler(self):
         pass
     
-    def xss_finder():
-        with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
-           wordlist_xss = xss.read()
-          
-           return wordlist_xss
+    def xss_finder():       
+
         pass
 
     def validat_xss():
@@ -103,7 +102,19 @@ class farasha:
            self.fuzz_subs(url)
         
 
+def wordlist_xss():
+
+    with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
+       wordlist_xss = xss.read()
+       return wordlist_xss
+
+def wordlist_subs():
+
+    print("reading wordlist...")
+    with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
+       subd = subs.read().splitlines()
+       return subd
 
 if __name__ == "__main__":  
-
-    farasha().options()
+    
+    farasha(wordlist_subs(), wordlist_xss()).options()                                             
