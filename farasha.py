@@ -52,8 +52,11 @@ class farasha:
                 print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
 
                 discoverd_subs.append(url)
-            
-            with 
+            name_preference = target.replace(".com", "")
+             
+            with open(f"resulte/{name_preference}.txt", "x") as subs:
+                subs.write(discoverd_subs.replace("Discoverd Subs: ", ""))
+                print("output in folder resule!!")
 
     def fuzz_dir(self):
         
