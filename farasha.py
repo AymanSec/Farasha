@@ -5,7 +5,7 @@
 
 
 
-
+import bs4
 import re
 import requests
 import threading
@@ -26,6 +26,24 @@ print(r"""
 
 init(autoreset=True)
 
+
+
+
+class wordlist():
+        def wordlist_xss(self):
+            print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
+        
+            with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
+               wordlist_xss = xss.read()
+               return wordlist_xss
+        
+        def wordlist_subs(self):
+        
+            print(f"{Fore.LIGHTMAGENTA_EX}reading wordlist...")
+            with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
+               subd = subs.read().splitlines()
+               return subd
+            
 class farasha:
     
     def __init__(self, subd, xss_wordlist):
@@ -105,7 +123,6 @@ class farasha:
     def options(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("-f", "--fullScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true')
-        parser.add_argument("-q", "--quickScan", help="quick scan is for found dir and do fuzz xss as dir just dir:!", action='store_true')
         parser.add_argument("-u", "--url", help="set url target", required=True)
         args = parser.parse_args()
         
@@ -118,21 +135,7 @@ class farasha:
         if args.fullScan:
            self.fuzz_subs(url)
 
-
-def wordlist_xss():
-    print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
-
-    with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
-       wordlist_xss = xss.read()
-       return wordlist_xss
-
-def wordlist_subs():
-
-    print(f"{Fore.LIGHTMAGENTA_EX}reading wordlist...")
-    with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
-       subd = subs.read().splitlines()
-       return subd
-
 if __name__ == "__main__":  
-    
-    farasha(wordlist_subs(), wordlist_xss()).options()                                             
+    subs = wordlist().wordlist_subs()
+    xss = wordlist().wordlist_xss()
+    farasha(subs, xss).options()                                             
