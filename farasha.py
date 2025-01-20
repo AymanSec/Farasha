@@ -36,7 +36,8 @@ class farasha:
     def fuzz_subs(self, target):    
 
         discoverd_subs = ['']
-        
+        print(f"{Fore.CYAN}fuzz subs...")
+
         for subdomains in self.subd:
             url = f"https://{subdomains}.{target}"
 
@@ -50,7 +51,7 @@ class farasha:
                         pass
             except KeyboardInterrupt:
                         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
-                        print(f'{Fore.YELLOW}exite success!')      
+                        print(f'{Fore.RED}exite success!')      
                         exit(0)  
 
             
@@ -118,6 +119,7 @@ class farasha:
 
 
 def wordlist_xss():
+    print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
 
     with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
        wordlist_xss = xss.read()
@@ -125,7 +127,7 @@ def wordlist_xss():
 
 def wordlist_subs():
 
-    print("reading wordlist...")
+    print(f"{Fore.LIGHTMAGENTA_EX}reading wordlist...")
     with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
        subd = subs.read().splitlines()
        return subd
