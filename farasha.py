@@ -35,7 +35,7 @@ class farasha:
 
     def fuzz_subs(self, target):    
 
-        discoverd_subs = ['']
+        self.discoverd_subs = ['']
         print(f"{Fore.CYAN}fuzz subs...")
 
         for subdomains in self.subd:
@@ -58,19 +58,22 @@ class farasha:
             else:
                 print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
 
-                discoverd_subs.append(url)
+                self.discoverd_subs.append(url)
 
                 name_preference = target.replace(".com", "")
                 os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
                    
-                out = "\n".join(discoverd_subs)
+                out = "\n".join(self.discoverd_subs)
                 with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
                   subs.write(out)
-                  
-                
 
-    def fuzz_dir(self):
+#+++++++++++++++++++++                 
+#+Ayman M9wd chwya !!+               
+#+++++++++++++++++++++
+    
+    def call_subs(self):
         
+       
         pass
 
     def param_crawler(self):
