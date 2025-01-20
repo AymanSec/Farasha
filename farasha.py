@@ -68,8 +68,6 @@ class farasha:
                   subs.write(out)
                   
                 
-          
-           
 
     def fuzz_dir(self):
         
