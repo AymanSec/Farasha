@@ -1,2 +1,14 @@
 requests
 colorama
+bs4 
+re
+requests
+threading
+argparse
+os 
+sys
+subprocess
+colorama 
+Fore 
+init
+urllib.parse
