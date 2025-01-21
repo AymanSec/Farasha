@@ -5,14 +5,15 @@
 
 
 
-import bs4
+from  bs4 import BeautifulSoup
 import re
 import requests
 import threading
 import argparse
 import os, sys, subprocess
 from colorama import Fore, init
-
+import logging
+from urllib.parse import urljoin
 
 
 print(r"""
@@ -29,7 +30,7 @@ init(autoreset=True)
 
 
 
-class wordlist():
+class wordlist:
         def wordlist_xss(self):
             print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
         
@@ -44,12 +45,52 @@ class wordlist():
                subd = subs.read().splitlines()
                return subd
             
+class param_crawler:
+    
+  
+         
+        def __init__(self, urls=[]):
+          self.visited_urls = []
+          self.urls_to_visit = urls
+
+        def download_url(self, url):
+            return requests.get(url).text
+    
+        def get_linked_urls(self, url, html):
+            soup = BeautifulSoup(html, 'html.parser')
+            for link in soup.find_all('a'):
+                path = link.get('href')
+                if path and path.startswith('/'):
+                    path = urljoin(url, path)
+                yield path
+    
+        def add_url_to_visit(self, url):
+            if url not in self.visited_urls and url not in self.urls_to_visit:
+                self.urls_to_visit.append(url)
+    
+        def crawl(self, url):
+            html = self.download_url(url)
+            for url in self.get_linked_urls(url, html):
+                self.add_url_to_visit(url)
+    
+        def run(self):
+            while self.urls_to_visit:
+                url = self.urls_to_visit.pop(0)
+                logging.info(f'Crawling: {url}')
+                try:
+                    self.crawl(url)
+                except Exception:
+                    logging.exception(f'Failed to crawl: {url}')
+                finally:
+                    self.visited_urls.append(url)
+                                             
 class farasha:
     
-    def __init__(self, subd, xss_wordlist):
-        
-        self.xss_wordlist = xss_wordlist
-        self.subd = subd
+    def __init__(self):
+         
+           
+        self.xss_wordlist = wordlist().wordlist_xss()
+        self.subd = wordlist().wordlist_subs()
 
     def fuzz_subs(self, target):    
 
@@ -122,7 +163,7 @@ class farasha:
     
     def options(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument("-f", "--fullScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true')
+        parser.add_argument("-X", "--XssScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true')
         parser.add_argument("-u", "--url", help="set url target", required=True)
         args = parser.parse_args()
         
@@ -132,10 +173,15 @@ class farasha:
         if args.url:
            self.match_url(url)
         
-        if args.fullScan:
+        if args.XssScan:
+          
            self.fuzz_subs(url)
+           
+           param_crawler(urls=["https://",url]).run()
+
+
 
 if __name__ == "__main__":  
-    subs = wordlist().wordlist_subs()
-    xss = wordlist().wordlist_xss()
-    farasha(subs, xss).options()                                             
+    
+    farasha().options()                                             
+    
