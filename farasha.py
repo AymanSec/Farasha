@@ -13,38 +13,97 @@ import os, sys, subprocess
 from colorama import Fore, init
 import logging
 from urllib.parse import urljoin
+import random
 
+import os
+import time
 
-print(r"""
-                -----------------─────────────────────────────────────────────────────┐
-                                 │ ____|                                 |            │
-                                 │ |        _` |    __|    _` |    __|   __ \     _` |│
-                                 │ __|     (   |   |      (   |  \__ \   | | |   (   |│
-                                 │_|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|│
-                                 └────────────────────────────────────────────────────┘-----------by AymanSec
+def big_text_animation():
+    clear_command = "cls" if os.name == "nt" else "clear"
+
+    big_text = [
+        "▄▀▀█▄▄   ▄▀▀▄ ▀▀▄      ▄▀▀█▄   ▄▀▀▄ ▀▀▄  ▄▀▀▄ ▄▀▄  ▄▀▀█▄   ▄▀▀▄ ▀▄  ▄▀▀▀▀▄  ▄▀▀█▄▄▄▄  ▄▀▄▄▄▄  ",
+        "▐ ▄▀   █ █   ▀▄ ▄▀     ▐ ▄▀ ▀▄ █   ▀▄ ▄▀ █  █ ▀  █ ▐ ▄▀ ▀▄ █  █ █ █ █ █   ▐ ▐  ▄▀   ▐ █ █    ▌ ",
+        "  █▄▄▄▀  ▐     █         █▄▄▄█ ▐     █   ▐  █    █   █▄▄▄█ ▐  █  ▀█    ▀▄     █▄▄▄▄▄  ▐ █      ",
+        "  █   █        █        ▄▀   █       █     █    █   ▄▀   █   █   █  ▀▄   █    █    ▌    █      ",
+        " ▄▀▄▄▄▀      ▄▀        █   ▄▀      ▄▀    ▄▀   ▄▀   █   ▄▀  ▄▀   █    █▀▀▀    ▄▀▄▄▄▄    ▄▀▄▄▄▄▀ ",
+        "█    ▐       █         ▐   ▐       █     █    █    ▐   ▐   █    ▐    ▐       █    ▐   █     ▐  ",
+        "▐            ▐                     ▐     ▐    ▐            ▐                 ▐        ▐          "
+    ]
+
+    green = "\033[92m"
+    reset_color = "\033[0m"  
+
+    width = os.get_terminal_size().columns 
+    frames = 150  
+    padding = " " * width  
+
+    for frame in range(frames):
+        os.system(clear_command)  
+        offset = frame % (width + len(big_text[0]))  
+
+        for line_index, line in enumerate(big_text):
+            colored_line = (
+                green +  
+                padding[max(0, width - offset):] + 
+                line[max(0, offset - width):] +  
+                reset_color
+            )
+            print(colored_line)
+        time.sleep(0.007)  
+
+big_text_animation()
+
+os.system("cls" if os.name == "nt" else "clear")
+    
+print("""
+\033[91m                -----------------─────────────────────────────────────────────────────┐
+                                 │ \033[91m____|                                 |            │
+                                 │ \033[91m|        _` |    __|    _` |    __|   __ \     _` |│
+                                 │ \033[91m__|     (   |   |      (   |  \__ \   | | |   (   |│
+                                 │ \033[91m_|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|│
+                                 └────────────────────────────────────────────────────┘-----------by AymanSec\033[0m
 """)
+time.sleep(1.3)
+os.system("cls" if os.name == "nt" else "clear")
+
 
 init(autoreset=True)
 
-
+with open("quotes/quotes.txt", "r") as quotes:
+     quote = quotes.read().splitlines()
+ma9ola = random.choice(quote)     
+print(Fore.GREEN + "->", Fore.CYAN + ma9ola)
 
 
 class wordlist:
     
+           
         def wordlist_xss(self):
-            print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
-        
-            with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
-               wordlist_xss = xss.read()
-               return wordlist_xss
-        
+           
+           print(f"{Fore.LIGHTYELLOW_EX}reading wordlist xss...")
+           with open("wordlist/xss.txt", 'r',  encoding='utf-8') as xss:
+                  wordlist_xss = xss.read()
+                  return wordlist_xss
+           
         def wordlist_subs(self):
-        
-            print(f"{Fore.LIGHTMAGENTA_EX}reading wordlist...")
+           
+            print(f"{Fore.LIGHTMAGENTA_EX}reading wordlist subs...")
             with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
-               subd = subs.read().splitlines()
-               return subd
+                subd = subs.read().splitlines()
+                return subd
+        
+        def get_func(self, func_name):
+                if hasattr(self, func_name) and callable(getattr(self, func_name)):
+                  return getattr(self, func_name)()  
+                else:
+                   print(f"Function '{func_name}' not found.")
+                   return None
+       
     
+        def __call__(self):    
+            print("importing ....")
+            
 
 class param_crawler:
     
@@ -88,17 +147,24 @@ class param_crawler:
 class farasha:
     
     def __init__(self):
-         
-           
-        self.xss_wordlist = wordlist().wordlist_xss()
-        self.subd = wordlist().wordlist_subs()
+         pass
 
     def fuzz_subs(self, target):    
 
+        wordlist_instance = wordlist()
+       
+        subd = wordlist_instance.wordlist_subs()
+        xss = wordlist_instance.wordlist_xss()
+ 
+        
+        self.xss_wordlist = xss
+        self.subd = subd
+        
         self.discoverd_subs = ['']
         print(f"{Fore.CYAN}fuzz subs...")
 
         for subdomains in self.subd:
+
             url = f"https://{subdomains}.{target}"
 
             #you should do http after, caus we want also scan local host !!  
@@ -127,18 +193,11 @@ class farasha:
                 with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
                   subs.write(out)
 
-#+++++++++++++++++++++                 
-#+Ayman M9wd chwya !!+               
-#+++++++++++++++++++++
+#++++++++++++++++++++++++++++++                
+#+Ayman M9wd chwya zayd nrza!!+               
+#++++++++++++++++++++++++++++++
     
-    def call_subs(self):
-        
-       
-        pass
 
-    def param_crawler(self):
-        pass
-    
     def xss_finder():       
 
         pass
@@ -164,7 +223,7 @@ class farasha:
     
     def options(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument("-X", "--XssScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true')
+        parser.add_argument("-X", "--XssScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true', required=True)
         parser.add_argument("-u", "--url", help="set url target", required=True)
         args = parser.parse_args()
         
@@ -185,7 +244,9 @@ class farasha:
 if __name__ == "__main__":  
 
     try:
-      farasha().options()                                             
+      farasha().options()    
+
+
     except KeyboardInterrupt:
                subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
                print(f'{Fore.RED}exite success!')      
