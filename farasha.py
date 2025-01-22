@@ -1,7 +1,6 @@
-#"""####################################################################################################"""
-####copyright by AymanSec this tool is free and open-source, farasha is automation tool for scaning web was made in 
-####Kingdom morocco  ###########################################################################################
-#"""####################################################################################################"""
+"""#####################################################################################################"""
+"""#copyright by AymanSec this tool is free and open-source, farasha is automation tool for scaning web#"""
+"""#####################################################################################################"""
 
 
 
@@ -31,6 +30,7 @@ init(autoreset=True)
 
 
 class wordlist:
+    
         def wordlist_xss(self):
             print(f"{Fore.LIGHTYELLOW_EX}reading wordlist...")
         
@@ -44,11 +44,12 @@ class wordlist:
             with open("wordlist/subs.txt", "r", encoding='utf-8') as subs:
                subd = subs.read().splitlines()
                return subd
-            
+    
+
 class param_crawler:
     
   
-         
+    
         def __init__(self, urls=[]):
           self.visited_urls = []
           self.urls_to_visit = urls
@@ -83,7 +84,7 @@ class param_crawler:
                     logging.exception(f'Failed to crawl: {url}')
                 finally:
                     self.visited_urls.append(url)
-                                             
+                                         
 class farasha:
     
     def __init__(self):
@@ -182,6 +183,10 @@ class farasha:
 
 
 if __name__ == "__main__":  
-    
-    farasha().options()                                             
-    
+
+    try:
+      farasha().options()                                             
+    except KeyboardInterrupt:
+               subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+               print(f'{Fore.RED}exite success!')      
+               exit(0)
