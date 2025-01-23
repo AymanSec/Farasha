@@ -50,21 +50,22 @@ def big_text_animation():
                 reset_color
             )
             print(colored_line)
-        time.sleep(0.007)  
+        time.sleep(0.002)  
 
-big_text_animation()
+# big_text_animation()
 
 os.system("cls" if os.name == "nt" else "clear")
     
-print("""
-\033[91m                -----------------─────────────────────────────────────────────────────┐
-                                 │ \033[91m____|                                 |            │
-                                 │ \033[91m|        _` |    __|    _` |    __|   __ \     _` |│
-                                 │ \033[91m__|     (   |   |      (   |  \__ \   | | |   (   |│
-                                 │ \033[91m_|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|│
-                                 └────────────────────────────────────────────────────┘-----------by AymanSec\033[0m
+print(Fore.RED + 
+r"""                                            hi there
+                        -----------------─────────────────────────────────────────────────────┐
+                                 │         ____|                                 |            │
+                                 │         |        _` |    __|    _` |    __|   __ \     _` |│
+                                 │         __|     (   |   |      (   |  \__ \   | | |   (   |│
+                                 │         _|      \__,_|  _|     \__,_|  ____/  _| |_|  \__,_|
+                                 └────────────────────────────────────────────────────┘-----------
 """)
-time.sleep(1.3)
+time.sleep(1)
 os.system("cls" if os.name == "nt" else "clear")
 
 
@@ -143,55 +144,75 @@ class param_crawler:
                     logging.exception(f'Failed to crawl: {url}')
                 finally:
                     self.visited_urls.append(url)
-                                         
+
+
+
 class farasha:
-    
     def __init__(self):
-         pass
+        self.number = int
+        pass
 
+    def max_dommains(self, numbers):
+
+        if numbers is int:  
+            num = self.number
+            for number in numbers:
+                
+                num.append(numbers)
+
+            return numbers
+            
+        else:
+            print("numbers not other thing!!")
+
+  
     def fuzz_subs(self, target):    
-
+        
         wordlist_instance = wordlist()
        
         subd = wordlist_instance.wordlist_subs()
         xss = wordlist_instance.wordlist_xss()
- 
         
+
         self.xss_wordlist = xss
         self.subd = subd
         
         self.discoverd_subs = ['']
         print(f"{Fore.CYAN}fuzz subs...")
+        if self.discoverd_subs != self.number:
 
-        for subdomains in self.subd:
-
-            url = f"https://{subdomains}.{target}"
-
-            #you should do http after, caus we want also scan local host !!  
-            try:    
-                  
+            for subdomains in self.subd:
                
-               req = requests.get(url)
-              
-            except requests.ConnectionError:
-                        pass
-            except KeyboardInterrupt:
-                        subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
-                        print(f'{Fore.RED}exite success!')      
-                        exit(0)  
-
-            
-            else:
-                print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
-
-                self.discoverd_subs.append(url)
-
-                name_preference = target.replace(".com", "")
-                os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
+    
+                url = f"https://{subdomains}.{target}"
+                
+                #you should do http after, caus we want also scan local host !!   it's nice to think about everything !! ahh77
+                try:    
+                      
                    
-                out = "\n".join(self.discoverd_subs)
-                with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
-                  subs.write(out)
+                   req = requests.get(url)
+                  
+                except requests.ConnectionError:
+                            pass
+                except KeyboardInterrupt:
+                            subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+                            print(f'{Fore.RED}exite success!')      
+                            exit(0)  
+    
+                
+                else:
+                    print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
+    
+                    self.discoverd_subs.append(url)
+    
+                    name_preference = target.replace(".com", "")
+                    os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
+                       
+                    out = "\n".join(self.discoverd_subs)
+                    with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
+                      subs.write(out)
+        else:
+            print(Fore.LIGHTRED_EX + "progress finish")
 
 #++++++++++++++++++++++++++++++                
 #+Ayman M9wd chwya zayd nrza!!+               
@@ -213,24 +234,26 @@ class farasha:
         if  re.match(string_regex, url):
             
       
-            print(f"the target:\033[31m{url}\033[0m","has been taked with success!!✅✅")
+            print(f"the target:  \033[31m{url}\033[0m","has been taked with success!!✅✅")
        
         else:
             print("""check your url !! ❌
                   
             ^^^^^^^^^^^^^^^^^^      try delete protocol http[s] and put just the name with domain!!  """)
       
+
     
     def options(self):
         parser = argparse.ArgumentParser()
         parser.add_argument("-X", "--XssScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true', required=True)
         parser.add_argument("-u", "--url", help="set url target", required=True)
+        parser.add_argument("-N","--number", help="numbers of dommains do you want, 'set max of dommain fuzzing'", required=True)
         args = parser.parse_args()
         
 
         url = args.url
         
-        if args.url:
+        if url:
            self.match_url(url)
         
         if args.XssScan:
@@ -238,14 +261,17 @@ class farasha:
            self.fuzz_subs(url)
            
            param_crawler(urls=["https://",url]).run()
+        
+        if args.number:
 
+            self.max_dommains(args.number)
 
 
 if __name__ == "__main__":  
-
+    
     try:
       farasha().options()    
-
+    
 
     except KeyboardInterrupt:
                subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
