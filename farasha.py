@@ -57,7 +57,7 @@ def big_text_animation():
 os.system("cls" if os.name == "nt" else "clear")
     
 print(Fore.RED + 
-r"""                                            hi there
+r"""                                            Hi, there
                         -----------------─────────────────────────────────────────────────────┐
                                  │         ____|                                 |            │
                                  │         |        _` |    __|    _` |    __|   __ \     _` |│
@@ -149,23 +149,36 @@ class param_crawler:
 
 class farasha:
     def __init__(self):
-        self.number = int
-        pass
+        self.number = []
+        self.discoverd_subs = []
+        
 
     def max_dommains(self, numbers):
-
-        if numbers is int:  
-            num = self.number
+      
             for number in numbers:
-                
-                num.append(numbers)
+                self.number.append(number)
 
-            return numbers
-            
+                self.number = int("".join(map(str, number)))
+    def check_subd_discovred(self):
+      a = []
+    #   print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{str(len(self.discoverd_subs))+"/"+str(self.number)}.")
+      for i in str(len(self.discoverd_subs)):
+           a.append(i) 
+
+    #   t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a[0]+"/"+str(self.number)}."))
+      t3 = threading.Thread()
+      t3.start()
+      t3.join()
+      
+      if len(self.discoverd_subs) <= self.number:
+        if str(len(self.discoverd_subs)) in str(self.number):
+
+            print(Fore.LIGHTRED_EX + "process finish")
+            exit(0)
         else:
-            print("numbers not other thing!!")
-
-  
+            pass
+            
+       
     def fuzz_subs(self, target):    
         
         wordlist_instance = wordlist()
@@ -173,51 +186,57 @@ class farasha:
         subd = wordlist_instance.wordlist_subs()
         xss = wordlist_instance.wordlist_xss()
         
+     
 
         self.xss_wordlist = xss
         self.subd = subd
         
-        self.discoverd_subs = ['']
         print(f"{Fore.CYAN}fuzz subs...")
-        if self.discoverd_subs != self.number:
+        
+    
 
-            for subdomains in self.subd:
+        for subdomains in self.subd:   
+            
+            url = f"https://{subdomains}.{target}"
+            
+            #you should do http after, caus we want also scan local host !!   it's nice to think about everything !! ahh77
+            try:    
+                
+                req = requests.get(url)
+                t2 = threading.Thread(target=self.check_subd_discovred())
+                t2.start()
+                t2.join()
                
-    
-                url = f"https://{subdomains}.{target}"
+            except requests.ConnectionError:
+                        pass
+            except KeyboardInterrupt:
+                        subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
+                        print(f'{Fore.RED}exite success!')      
+                        exit(0)  
+
+            
+            else:
+                print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
+
+                self.discoverd_subs.append(url)
+
+                name_preference = target.replace(".com", "")
+                os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
+              
+                out = "\n".join(self.discoverd_subs)
                 
-                #you should do http after, caus we want also scan local host !!   it's nice to think about everything !! ahh77
-                try:    
-                      
-                   
-                   req = requests.get(url)
-                  
-                except requests.ConnectionError:
-                            pass
-                except KeyboardInterrupt:
-                            subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
-                            print(f'{Fore.RED}exite success!')      
-                            exit(0)  
-    
+
+                with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
+                  subs.write(out.strip())
                 
-                else:
-                    print(f"Discoverd Subs: ", f"{Fore.GREEN}{url}")
-    
-                    self.discoverd_subs.append(url)
-    
-                    name_preference = target.replace(".com", "")
-                    os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
-                       
-                    out = "\n".join(self.discoverd_subs)
-                    with open(f"resulte/{name_preference}/subs.txt", "w") as subs:
-                      subs.write(out)
-        else:
-            print(Fore.LIGHTRED_EX + "progress finish")
 
 #++++++++++++++++++++++++++++++                
 #+Ayman M9wd chwya zayd nrza!!+               
 #++++++++++++++++++++++++++++++
     
+    
+            
+             
 
     def xss_finder():       
 
@@ -256,20 +275,24 @@ class farasha:
         if url:
            self.match_url(url)
         
+        if args.number.isdigit():
+            
+            self.max_dommains(args.number)
+
+        else:
+             print(Fore.CYAN + "only number azbi")
+
         if args.XssScan:
-          
+           
            self.fuzz_subs(url)
            
            param_crawler(urls=["https://",url]).run()
         
-        if args.number:
-
-            self.max_dommains(args.number)
-
 
 if __name__ == "__main__":  
     
     try:
+      
       farasha().options()    
     
 
