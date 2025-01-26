@@ -165,7 +165,7 @@ class farasha:
       for i in str(len(self.discoverd_subs)):
            a.append(i) 
 
-    #   t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a[0]+"/"+str(self.number)}."))
+      t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a[0]+"/"+str(self.number)}."))
       t3 = threading.Thread()
       t3.start()
       t3.join()
