@@ -154,28 +154,34 @@ class farasha:
         
 
     def max_dommains(self, numbers):
-      
-            for number in numbers:
-                self.number.append(number)
-
-                self.number = int("".join(map(str, number)))
+            if numbers:
+                self.number = str("".join(map(str, numbers)))
+                
+            else:
+                for number in numbers:
+                 self.number.append(number)
+ 
+                 self.number = int("".join(map(str, number)))
+          
+       
+    
     def check_subd_discovred(self):
+     
       a = []
-    #   print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{str(len(self.discoverd_subs))+"/"+str(self.number)}.")
-      for i in str(len(self.discoverd_subs)):
-           a.append(i) 
+      for i, _ in enumerate(self.discoverd_subs, start=1):
+           
+           a.append(i[-1]) 
 
-      t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a[0]+"/"+str(self.number)}."))
-      t3 = threading.Thread()
+      t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a,"/"+self.number}."))
       t3.start()
       t3.join()
       
-      if len(self.discoverd_subs) <= self.number:
-        if str(len(self.discoverd_subs)) in str(self.number):
+      
+      if str(len(self.discoverd_subs)) in str(self.number):
 
             print(Fore.LIGHTRED_EX + "process finish")
             exit(0)
-        else:
+      else:
             pass
             
        
@@ -266,7 +272,7 @@ class farasha:
         parser = argparse.ArgumentParser()
         parser.add_argument("-X", "--XssScan", help="full scan for found all subs and all dir and fuzz xss as everthing ", action='store_true', required=True)
         parser.add_argument("-u", "--url", help="set url target", required=True)
-        parser.add_argument("-N","--number", help="numbers of dommains do you want, 'set max of dommain fuzzing'", required=True)
+        parser.add_argument("-N","--number", help="numbers of dommains do you want, 'set max for dommain fuzzing'", required=True)
         args = parser.parse_args()
         
 
@@ -275,12 +281,17 @@ class farasha:
         if url:
            self.match_url(url)
         
-        if args.number.isdigit():
-            
+        if args.number == "max":
             self.max_dommains(args.number)
+        
 
         else:
-             print(Fore.CYAN + "only number azbi")
+            if args.number.isdigit() :
+               
+             self.max_dommains(args.number)
+
+            else:
+                print(Fore.CYAN + "only number azbi or max option!!")
 
         if args.XssScan:
            

@@ -1,17 +1,10 @@
-import threading
 
-a = 1,2,3,4,5
-b = []
 
-for i in a:
- 
- b.append(i)
+subs = ["googl.com", "youtube.com", "l7waa.com"]
+a = []
+for i, _ in enumerate(subs, start=1):
+    a.append(i)
+   
     
-t1 = threading.Thread(print("subd:",b[-1]))
-t1.start()
-t1.join()
-    
-
-
-
-
+     
+print(a)
