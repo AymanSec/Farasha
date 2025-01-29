@@ -3,7 +3,7 @@ This project is an automated web scanner designed to detect Cross-Site Scripting
 
 
 
-slm draru dryat ana ayman programer & hacker white hat hhhhh had tool ta3 farasha brit n5liha open "free access", 7tx ll9itx mghrba mdyrin had lblan osaraèa brit kom d3moni, o ila bnt likom chi idafa ola chi istfsar ola chi blan n9dro nzudo fl tool dwi m3aya par email ola ra mnhna o ila biti chi w7d i3wnk ola lknti briti dir friend im here im not mtkbr !!
+slm draru dryat ana ayman programer & hacker white hat hhhhh had tool ta3 farasha brit n5liha open "free access" brit kom d3moni, o ila bnt likom chi idafa ola chi istfsar ola chi blan n9dro nzudo fl tool dwi m3aya par email ola ra mnhna o ila biti chi w7d i3wnk ola lknti briti dir friend im here im not mtkbr !!
 
 
 AymanSec was here 
