@@ -166,23 +166,20 @@ class farasha:
        
     
     def check_subd_discovred(self):
-     
-      a = []
-      for i, _ in enumerate(self.discoverd_subs, start=1):
-           
-           a.append(i[-1]) 
-
-      t3 = threading.Thread(print(Fore.RED+f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a,"/"+self.number}."))
-      t3.start()
-      t3.join()
+        a = []
+        for i, sub in enumerate(self.discoverd_subs, start=1):
+            # Assuming self.discoverd_subs is a list, append each sub to the list 'a'
+            a.append(i[-1])  # Adjusted to append the actual value of the sub
+    
+        # Corrected string formatting for the thread
+        t3 = threading.Thread(target=lambda: print(Fore.RED + f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a}, /{self.number}."))
+        t3.start()
+        t3.join()
       
-      
-      if str(len(self.discoverd_subs)) in str(self.number):
-
-            print(Fore.LIGHTRED_EX + "process finish")
-            exit(0)
-      else:
-            pass
+        if str(len(self.discoverd_subs)) in str(self.number):
+              print(Fore.LIGHTRED_EX + "process finish")
+              exit(0)
+        
             
        
     def fuzz_subs(self, target):    
