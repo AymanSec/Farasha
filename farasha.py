@@ -167,19 +167,21 @@ class farasha:
     
     def check_subd_discovred(self):
         a = []
+      
         for i, sub in enumerate(self.discoverd_subs, start=1):
-            # Assuming self.discoverd_subs is a list, append each sub to the list 'a'
-            a.append(i[-1])  # Adjusted to append the actual value of the sub
+            
+            a.append(i) 
     
-        # Corrected string formatting for the thread
-        t3 = threading.Thread(target=lambda: print(Fore.RED + f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{a}, /{self.number}."))
+        numbers = a[-1]  # mrrna i l a omn a l number bax n9dro n5do acess 3la -1 "last number" a777!! onyhyahay !!
+        t3 = threading.Thread(target=lambda: print(Fore.RED + f"𝓼𝓾𝓫𝓭𝓸𝓶𝓪𝓲𝓷:{numbers}/{self.number}."))
         t3.start()
         t3.join()
       
         if str(len(self.discoverd_subs)) in str(self.number):
               print(Fore.LIGHTRED_EX + "process finish")
               exit(0)
-        #a
+        else:
+            pass
             
        
     def fuzz_subs(self, target):    
@@ -206,10 +208,7 @@ class farasha:
             try:    
                 
                 req = requests.get(url)
-                t2 = threading.Thread(target=self.check_subd_discovred())
-                t2.start()
-                t2.join()
-               
+           
             except requests.ConnectionError:
                         pass
             except KeyboardInterrupt:
@@ -224,6 +223,11 @@ class farasha:
                 self.discoverd_subs.append(url)
 
                 name_preference = target.replace(".com", "")
+                
+                t2 = threading.Thread(target=self.check_subd_discovred())
+                t2.start()
+                t2.join()
+               
                 os.makedirs(os.path.dirname(f"resulte/{name_preference}/subs.txt"), exist_ok=True)
               
                 out = "\n".join(self.discoverd_subs)
