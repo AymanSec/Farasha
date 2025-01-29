@@ -213,7 +213,7 @@ class farasha:
                         pass
             except KeyboardInterrupt:
                         subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
-                        print(f'{Fore.RED}exite success!')      
+                        print(f'{Fore.RED}exite success!!!')      
                         exit(0)  
 
             
@@ -292,7 +292,8 @@ class farasha:
              self.max_dommains(args.number)
 
             else:
-                print(Fore.CYAN + "only number azbi or max option!!")
+                print(Fore.GREEN + "only number azbi or max option!!")
+                exit(0)
 
         if args.XssScan:
            
