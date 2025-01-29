@@ -179,7 +179,7 @@ class farasha:
         if str(len(self.discoverd_subs)) in str(self.number):
               print(Fore.LIGHTRED_EX + "process finish")
               exit(0)
-        
+        #a
             
        
     def fuzz_subs(self, target):    
