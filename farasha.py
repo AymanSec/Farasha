@@ -106,6 +106,7 @@ class wordlist:
             print("importing ....")
 
 
+
 class param_crawler:
 
 
@@ -146,8 +147,98 @@ class param_crawler:
                     self.visited_urls.append(url)
 
 
+class authentification:
+    def __init__(self):
+        self.session = requests.Session()
 
-class farasha:
+    def crsf(self, url):
+
+        token_page = self.session.get(url)
+        
+        token_soup = BeautifulSoup(token_page.content, 'html.parser')
+        
+        token = token_soup.find('input', {'name': '_csrf'})['value']
+
+    def cookies(self):
+        pass 
+
+class param_crawler(authentification):
+     
+    def __init__(self, url):
+
+        visited_url  = []
+    
+        req = super().__init__(self.session).get(url)
+
+        soup = BeautifulSoup(req.content, "html.parser").prettify()
+
+        pattern =  re.compile(r'href="([^"]+)"')
+        inputs = re.compile(r'input="([^"]+)"')
+        password = re.compile(r'password="([^"]+)"')
+        emails = re.compile(r'email="([^"]+)"')
+        tel = re.compile(r'tel="([^"]+)"')
+        telphone = re.compile(r'telphone="([^"]+)"')
+        comment = re.compile(r'comment="([^"]+)"')
+        commentaire = re.compile(r'commentaire="([^"]+)"')
+        id = re.compile(r'id="([^"]+)"')
+        file = re.compile(r'file="([^"]+)"')
+        number = re.compile(r'number="([^"]+)"')
+        submet = re.compile(r'submet="([^"]+)"')     
+        form = re.compile(r'form="([^"]+)"')
+
+        rey = re.findall(pattern,  soup)
+        input = re.findall(inputs,  soup)
+        passwo = re.findall(password,  soup)
+        mail = re.findall(emails,  soup)
+        telo  = re.findall(tel,  soup)
+        teloph = re.findall(telphone,  soup)
+        commente = re.findall(comment,  soup)
+        commentair = re.findall(commentaire,  soup)
+        idd = re.findall(id,  soup)
+        filee = re.findall(file,  soup)
+        numberee = re.findall(number,  soup)
+        submete = re.findall(submet,  soup)
+        forme  = re.findall(form,  soup)
+
+        for a in rey:
+            print(Fore.RED + "discovred:", a)
+
+            for b in  input:
+                print(Fore.RED + "discovred:",b)                                       
+
+                for c in passwo:
+                  print(Fore.RED + "discovred:",c)
+                    
+                  for d in mail: 
+                    print(Fore.RED + "discovred:",d)
+                    for e in telo:
+                        print(Fore.RED + "discovred:",e)
+                        for f in teloph:
+                            print(Fore.RED + "discovred:",f)
+                            for g in commente:
+                                print(Fore.RED + "discovred:",g)
+                                for i in commentair:
+                                    print(Fore.RED + "discovred:",i)
+                                    for j in idd:
+                                        print(Fore.RED + "discovred:", j)
+                                        for k in filee:
+                                            print(Fore.RED + "discovred:",k)
+                                            for l in numberee:
+                                                print(Fore.RED + "discovred:",l)
+                                                for m in submet:
+                                                    print(Fore.RED + "discovred:",m)
+                                                    for n in form:
+                                                        print(Fore.RED + "discovred:",n)
+
+
+
+
+
+
+
+
+
+class farasha(param_crawler):
     def __init__(self):
         self.number = []
         self.discoverd_subs = []
@@ -209,6 +300,7 @@ class farasha:
             try:
 
                 req = requests.get(url)
+                req = super().__init__(self.session).get(url)
 
             except requests.ConnectionError:
                         pass
@@ -311,8 +403,13 @@ if __name__ == "__main__":
       farasha().options()
     
       
+    #   farasha().options()
+      param_crawler("https://youtube.com/")
+
+      
 
     except KeyboardInterrupt:
                subprocess.run('cls' if os.name == 'nt' else 'clear', shell=True)
                print(f'{Fore.RED}exite success!')
+               exit(0)
                exit(0)
